@@ -1,16 +1,14 @@
-use strict;
-use warnings;
-use ExtUtils::MakeMaker;
+require 5.006;
+use inc::Module::Install;
 
-WriteMakefile(
-    NAME                => 'Test::Reporter::Transport::Metabase',
-    AUTHOR              => 'Richard Dawe <richdawe@cpan.org>',
-    VERSION_FROM        => 'lib/Test/Reporter/Transport/Metabase.pm',
-    ABSTRACT_FROM       => 'lib/Test/Reporter/Transport/Metabase.pm',
-    PL_FILES            => {},
-    PREREQ_PM => {
-        'Test::More' => 0,
-    },
-    dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'Test-Reporter-Transport-Metabase-*' },
-);
+all_from('lib/Test/Reporter/Transport/Metabase.pm');
+
+requires('CPAN::Metabase::Fact'       => 0.001);
+requires('CPAN::Testers::Report'      => 0.001); 
+requires('Config::Perl::V'            => 0.02);
+
+test_requires('Test::More'            => 0.62);
+  
+extra_tests;
+
+WriteAll;
