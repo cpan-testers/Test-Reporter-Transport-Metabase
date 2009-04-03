@@ -7,10 +7,10 @@ use base 'Test::Reporter::Transport';
 
 use Carp                                   ();
 use Config::Perl::V                        ();
-use CPAN::Metabase::User::Profile          ();
-use CPAN::Metabase::User::EmailAddress     ();
-use CPAN::Metabase::User::FullName         ();
-use CPAN::Metabase::User::Secret           ();
+use Metabase::User::Profile          ();
+use Metabase::User::EmailAddress     ();
+use Metabase::User::FullName         ();
+use Metabase::User::Secret           ();
 use CPAN::Testers::Report                  ();
 use CPAN::Testers::Fact::LegacyReport      ();
 use CPAN::Testers::Fact::TestSummary       ();
@@ -29,10 +29,10 @@ sub new {
   my $uri = shift or Carp::confess __PACKAGE__ . " requires uri argument\n";
   my $apikey = shift or Carp::confess __PACKAGE__ . " requires apikey argument\n";
   my $secret = shift or Carp::confess __PACKAGE__ . " requires secret argument\n";
-  my $client ||= 'Simple'; # Default to CPAN::Metabase::Client::Simple.
+  my $client ||= 'Simple'; # Default to Metabase::Client::Simple.
   
-  # XXX CPAN::Metabase will become Metabase -- dagolden, 2009-03-30 
-  $client = "CPAN::Metabase::Client::$client";
+  # XXX Metabase will become Metabase -- dagolden, 2009-03-30 
+  $client = "Metabase::Client::$client";
 
   return bless {
     apikey  => $apikey,
@@ -55,12 +55,12 @@ sub send {
   my $best = eval { Email::Address->parse( $report->from )->[0] };
   Carp::confess __PACKAGE__ . ": can't find email address from: " . $report->from
     if $@;
-  my $profile = CPAN::Metabase::User::Profile->open(
+  my $profile = Metabase::User::Profile->open(
     resource => "metabase:user:" . $self->{apikey},
   );
-  $profile->add( 'CPAN::Metabase::User::EmailAddress' => $best->address );
-  $profile->add( 'CPAN::Metabase::User::FullName' => $best->name );
-  $profile->add( 'CPAN::Metabase::User::Secret' => $self->{secret} );
+  $profile->add( 'Metabase::User::EmailAddress' => $best->address );
+  $profile->add( 'Metabase::User::FullName' => $best->name );
+  $profile->add( 'Metabase::User::Secret' => $self->{secret} );
   $profile->close();
 
   # Load specified metabase client.

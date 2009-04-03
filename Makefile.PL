@@ -3,7 +3,7 @@ use inc::Module::Install;
 
 all_from('lib/Test/Reporter/Transport/Metabase.pm');
 
-requires('CPAN::Metabase::Fact'       => 0.001);
+requires('Metabase::Fact'       => 0.001);
 requires('CPAN::Testers::Report'      => 0.001); 
 requires('Config::Perl::V'            => 0.02);
 
