@@ -1,0 +1,142 @@
+From: DAGOLDEN <dagolden@cpan.org>
+Subject: PASS File-RandomLine-0.19 x86_64-linux-ld 2.6.27-9-generic
+Report: This distribution has been tested as part of the cpan-testers
+effort to test as many new uploads to CPAN as possible.  See
+http://www.cpantesters.org/
+
+
+--
+Dear David Golden,
+    
+This is a computer-generated report for File-RandomLine-0.19
+on perl 5.10.0, created by CPAN-Reporter-1.1705. 
+
+Thank you for uploading your work to CPAN.  Congratulations!
+All tests were successful.
+
+Sections of this report:
+
+    * Tester comments
+    * Program output
+    * Prerequisites
+    * Environment and other context
+
+------------------------------
+TESTER COMMENTS
+------------------------------
+
+Additional comments from tester: 
+
+none provided
+
+------------------------------
+PROGRAM OUTPUT
+------------------------------
+
+Output from './Build test':
+
+t/01-fast-algorithm.t ..... ok
+t/02-uniform-algorithm.t .. ok
+t/98_pod.t ................ skipped: Skipping author tests
+t/99_pod_coverage.t ....... skipped: Skipping author tests
+All tests successful.
+Files=4, Tests=73,  0 wallclock secs ( 0.02 usr  0.01 sys +  0.14 cusr  0.05 csys =  0.22 CPU)
+Result: PASS
+
+------------------------------
+PREREQUISITES
+------------------------------
+
+Prerequisite modules loaded:
+
+requires:
+
+    Module           Need  Have    
+    ---------------- ----- --------
+    File::Spec       0.87  3.29    
+    perl             5.006 5.010000
+    Test::Exception  0.2   0.27    
+    Test::MockRandom 0.97  1.00    
+    Test::More       0.6   0.86    
+    Test::Warn       0.08  0.11    
+    Want             0.08  0.18    
+
+
+------------------------------
+ENVIRONMENT AND OTHER CONTEXT
+------------------------------
+
+Environment variables:
+
+    LANG = en_US.UTF-8
+    LC_COLLATE = C
+    LC_CTYPE = en_US.UTF-8
+    PATH = .:/home/david/bin:/home/david/git/utility-scripts:/opt/perl/current/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+    PERL5LIB = /home/david/.cpan/build/Test-MockRandom-1.00-7CMpX2/blib/arch:/home/david/.cpan/build/Test-MockRandom-1.00-7CMpX2/blib/lib:/home/david/.cpan/build/File-Marker-0.13-mzQJO6/blib/arch:/home/david/.cpan/build/File-Marker-0.13-mzQJO6/blib/lib
+    PERL5OPT = 
+    PERL5_CPANPLUS_IS_RUNNING = 9702
+    PERL5_CPAN_IS_RUNNING = 9702
+    PERL_EXTUTILS_AUTOINSTALL = --default-deps
+    SHELL = /bin/bash
+    TERM = xterm
+
+Perl special variables (and OS-specific diagnostics, for MSWin32):
+
+    $^X = /opt/perl/5.10.0/bin/perl
+    $UID/$EUID = 1000 / 1000
+    $GID = 1000 4 20 24 46 108 123 124 1000
+    $EGID = 1000 4 20 24 46 108 123 124 1000
+
+Perl module toolchain versions installed:
+
+    Module              Have   
+    ------------------- -------
+    CPAN                1.9304 
+    Cwd                 3.29   
+    ExtUtils::CBuilder  0.24   
+    ExtUtils::Command   1.14   
+    ExtUtils::Install   1.50   
+    ExtUtils::MakeMaker 6.48   
+    ExtUtils::Manifest  1.54   
+    ExtUtils::ParseXS   2.18_02
+    File::Spec          3.29   
+    Module::Build       0.32   
+    Module::Signature   0.55   
+    Test::Harness       3.16   
+    Test::More          0.86   
+    YAML                0.68   
+    YAML::Syck          1.05   
+    version             0.74   
+
+
+--
+
+Summary of my perl5 (revision 5 version 10 subversion 0) configuration:
+  Platform:
+    osname=linux, osvers=2.6.27-9-generic, archname=x86_64-linux-ld
+    uname='linux vulcan 2.6.27-9-generic #1 smp thu nov 20 22:15:32 utc 2008 x86_64 gnulinux '
+    config_args='-de -Dusedevel -Dprefix=/opt/perl/5.10.0 -Dusemorebits -Uversiononly -Dmydomain=.hyperbolic.net -Dcf_email=xdaveg@gmail.com -Dperladmin=xdaveg@gmail.com -Dcc=gcc'
+    hint=recommended, useposix=true, d_sigaction=define
+    useithreads=undef, usemultiplicity=undef
+    useperlio=define, d_sfio=undef, uselargefiles=define, usesocks=undef
+    use64bitint=define, use64bitall=define, uselongdouble=define
+    usemymalloc=n, bincompat5005=undef
+  Compiler:
+    cc='gcc', ccflags ='-fno-strict-aliasing -pipe -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64',
+    optimize='-O2',
+    cppflags='-fno-strict-aliasing -pipe -I/usr/local/include'
+    ccversion='', gccversion='4.3.2', gccosandvers=''
+    intsize=4, longsize=8, ptrsize=8, doublesize=8, byteorder=12345678
+    d_longlong=define, longlongsize=8, d_longdbl=define, longdblsize=16
+    ivtype='long', ivsize=8, nvtype='long double', nvsize=16, Off_t='off_t', lseeksize=8
+    alignbytes=16, prototype=define
+  Linker and Libraries:
+    ld='gcc', ldflags =' -L/usr/local/lib'
+    libpth=/usr/local/lib /lib /usr/lib /lib64 /usr/lib64
+    libs=-lnsl -ldl -lm -lcrypt -lutil -lc
+    perllibs=-lnsl -ldl -lm -lcrypt -lutil -lc
+    libc=/lib/libc-2.8.90.so, so=so, useshrplib=false, libperl=libperl.a
+    gnulibc_version='2.8.90'
+  Dynamic Linking:
+    dlsrc=dl_dlopen.xs, dlext=so, d_dlsymun=undef, ccdlflags='-Wl,-E'
+    cccdlflags='-fPIC', lddlflags='-shared -O2 -L/usr/local/lib'
