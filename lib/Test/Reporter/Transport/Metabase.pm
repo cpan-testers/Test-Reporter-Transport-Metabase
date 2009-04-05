@@ -52,11 +52,12 @@ sub send {
   }
 
   # Create user profile and add secret -- get email/name from 'From:'
-  my $best = eval { Email::Address->parse( $report->from )->[0] };
-  Carp::confess __PACKAGE__ . ": can't find email address from: " . $report->from
+  my $best = eval { [Email::Address->parse( $report->from )]->[0] };
+  Carp::confess __PACKAGE__ . ": can't find email address from '" . $report->from  . "': $@"
     if $@;
   my $profile = Metabase::User::Profile->open(
     resource => "metabase:user:" . $self->{apikey},
+    guid => $self->{apikey},
   );
   $profile->add( 'Metabase::User::EmailAddress' => $best->address );
   $profile->add( 'Metabase::User::FullName' => $best->name );
@@ -90,14 +91,14 @@ sub send {
     osname        => $config->{osname},
     osversion     => $report->{_perl_version}{_osvers},
     archname      => $report->{_perl_version}{_archname},
-    perlversion   => $config->{version},
+    perl_version   => $config->{version},
     textreport    => $report->report
   });
 
   # TestSummary happens to be the same as content metadata 
   # of LegacyReport for now
   $metabase_report->add( 'CPAN::Testers::Fact::TestSummary' =>
-    $metabase_report->facts->[0]->content_metadata()
+    [$metabase_report->facts]->[0]->content_metadata()
   );
     
   # XXX wish we could fill these in with stuff from CPAN::Testers::ParseReport
