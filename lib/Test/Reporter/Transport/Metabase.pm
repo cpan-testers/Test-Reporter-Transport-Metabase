@@ -115,13 +115,7 @@ sub send {
 
   $metabase_report->close();
 
-  # XXX: This assumes the client returns an HTTP::Response.
-  # When there are alternative metabase clients (e.g.: raw sockets
-  # into BINGOS queueing system), this will need changing.
-  my $response = $client->submit_fact($metabase_report);
-  if (!$response->is_success()) {
-    die $response->status_line();
-  }
+  return $client->submit_fact($metabase_report);
 }
 
 1;
