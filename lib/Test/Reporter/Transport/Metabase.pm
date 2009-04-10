@@ -7,20 +7,12 @@ use base 'Test::Reporter::Transport';
 
 use Carp                                   ();
 use Config::Perl::V                        ();
-use Metabase::User::Profile          ();
-use Metabase::User::EmailAddress     ();
-use Metabase::User::FullName         ();
-use Metabase::User::Secret           ();
-use CPAN::Testers::Report                  ();
-use CPAN::Testers::Fact::LegacyReport      ();
-use CPAN::Testers::Fact::TestSummary       ();
-use CPAN::Testers::Fact::TestOutput        ();
-use CPAN::Testers::Fact::TesterComment     ();
-use CPAN::Testers::Fact::PerlConfig        ();
-use CPAN::Testers::Fact::TestEnvironment   ();
-use CPAN::Testers::Fact::Prereqs           ();
-use CPAN::Testers::Fact::InstalledModules  ();
 use Email::Address                         ();
+use CPAN::Testers::Report                  ();
+use Metabase::User::Profile          ();
+BEGIN {
+  $_->load_fact_classes for qw/Metabase::User::Profile CPAN::Testers::Report/;
+}
 
 use Data::Dumper;
 
@@ -30,8 +22,7 @@ sub new {
   my $apikey = shift or Carp::confess __PACKAGE__ . " requires apikey argument\n";
   my $secret = shift or Carp::confess __PACKAGE__ . " requires secret argument\n";
   my $client ||= 'Simple'; # Default to Metabase::Client::Simple.
-  
-  # XXX Metabase will become Metabase -- dagolden, 2009-03-30 
+
   $client = "Metabase::Client::$client";
 
   return bless {
