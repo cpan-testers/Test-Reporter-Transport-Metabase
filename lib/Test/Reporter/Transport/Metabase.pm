@@ -18,7 +18,7 @@ BEGIN {
 #--------------------------------------------------------------------------#
 
 my %default_args = (
-  client => 'Simple'
+  client => 'Metabase::Client::Simple'
 );
 my @allowed_args = qw/uri profile client/;
 my @required_args = qw/uri profile/;
@@ -185,8 +185,8 @@ create one.
 =item C<client> (optional)
 
 The C<client> argument is optional and specifies the type of Metabase::Client
-to use to transmit reports to the target Metabase.  It defaults to 'Simple', 
-meaning that L<Metabase::Client::Simple> will be used.
+to use to transmit reports to the target Metabase.  It defaults to 
+L<Metabase::Client::Simple>. 
 
 =head1 METHODS
 
