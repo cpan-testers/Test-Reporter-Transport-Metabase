@@ -7,31 +7,48 @@ use base 'Test::Reporter::Transport';
 
 use Carp                                   ();
 use Config::Perl::V                        ();
-use Email::Address                         ();
 use CPAN::Testers::Report                  ();
 use Metabase::User::Profile          ();
 BEGIN {
   $_->load_fact_classes for qw/Metabase::User::Profile CPAN::Testers::Report/;
 }
 
-use Data::Dumper;
+#--------------------------------------------------------------------------#
+# argument definitions
+#--------------------------------------------------------------------------#
+
+my %default_args = (
+  client => 'Simple'
+);
+my @allowed_args = qw/uri profile client/;
+my @required_args = qw/uri profile/;
+
+#--------------------------------------------------------------------------#
+# new
+#--------------------------------------------------------------------------#
 
 sub new {
   my $class = shift;
-  my $uri = shift or Carp::confess __PACKAGE__ . " requires uri argument\n";
-  my $apikey = shift or Carp::confess __PACKAGE__ . " requires apikey argument\n";
-  my $secret = shift or Carp::confess __PACKAGE__ . " requires secret argument\n";
-  my $client ||= 'Simple'; # Default to Metabase::Client::Simple.
+  Carp::confess __PACKAGE__ . " requires transport args in key/value pairs\n"
+    if @_ % 2;
+  my %args = ( %default_args, @_ );
+ 
+  for my $k ( @required_args ) {
+    Carp::confess __PACKAGE__ . " requires $k argument\n"
+      unless exists $args{$k};
+  }
 
-  $client = "Metabase::Client::$client";
+  for my $k ( keys %args ) {
+    Carp::confess __PACKAGE__ . " unknown argument '$k'\n"
+      unless grep { $k eq $_ } @allowed_args;
+  }
 
-  return bless {
-    apikey  => $apikey,
-    secret  => $secret,
-    client  => $client,
-    uri     => $uri,
-  } => $class;
+  return bless \%args => $class;
 }
+
+#--------------------------------------------------------------------------#
+# send
+#--------------------------------------------------------------------------#
 
 sub send {
   my ($self, $report) = @_;
@@ -42,18 +59,9 @@ sub send {
       . "to Test::Reporter.  Report will not be sent.\n";
   }
 
-  # Create user profile and add secret -- get email/name from 'From:'
-  my $best = eval { [Email::Address->parse( $report->from )]->[0] };
-  Carp::confess __PACKAGE__ . ": can't find email address from '" . $report->from  . "': $@"
-    if $@;
-  my $profile = Metabase::User::Profile->open(
-    resource => "metabase:user:" . $self->{apikey},
-    guid => $self->{apikey},
-  );
-  $profile->add( 'Metabase::User::EmailAddress' => $best->address );
-  $profile->add( 'Metabase::User::FullName' => $best->name );
-  $profile->add( 'Metabase::User::Secret' => $self->{secret} );
-  $profile->close();
+  my $profile = Metabase::User::Profile->load( $self->{profile} )
+    or Carp::confess __PACKAGE__ . ": could not load Metabase profile\n"
+    . "from '$self->{profile}'\n";
 
   # Load specified metabase client.
   my $class = $self->{client};
@@ -121,24 +129,64 @@ Test::Reporter::Transport::Metabase - Metabase transport fo Test::Reporter
 
     my $report = Test::Reporter->new(
         transport => 'Metabase',
-        transport_args => {
-            apikey  => 'B66C7662-1D34-11DE-A668-0DF08D1878C0',
-            secret  => 'aixuZuo8',
-            uri     => 'http://metabase.server.example:3000/',
-        },
+        transport_args => [
+          uri     => 'http://metabase.example.com:3000/',
+          profile => '/home/jdoe/.metabase.profile',
+        ],
     );
+
+    # use space-separated in a CPAN::Reporter config.ini
+    transport = Metabase uri http://metabase.example.com:3000/ ...
 
 =head1 DESCRIPTION
 
 This module submits a Test::Reporter report to the specified Metabase instance.
 
-This requires online operation. If you wish to save reports
-during offline operation, see L<Test::Reporter::Transport::File>.
+This requires a network connection to the Metabase uri provided. 
+If you wish to save reports during offline operation, see 
+L<Test::Reporter::Transport::File>. (Eventually, you may be able to run a local
+Metabase instance to queue reports for later transmission, but this feature
+has not yet been developed.)
 
 =head1 USAGE
 
 See L<Test::Reporter> and L<Test::Reporter::Transport> for general usage
 information.
+
+=head2 Transport arguments
+Unlike most other Transport classes, this class requires transport arguments
+to be provided as key-value pairs:
+
+    my $report = Test::Reporter->new(
+        transport => 'Metabase',
+        transport_args => [
+          uri     => 'http://metabase.example.com:3000/',
+          profile => '/home/jdoe/.metabase.profile',
+        ],
+    );
+
+Arguments include:
+
+=over
+
+=item C<uri> (required)
+
+The C<uri> argument gives the network location of a Metabase instance to receive
+reports.
+
+=item C<profile> (required)
+
+The C<profile> argument must be a path to a saved Metabase::User::Profile.  If
+you do not already have a profile file, use the 'metabase-profile' program to
+create one.
+
+  $ metabase-profile -o ~/.metabase.profile
+
+=item C<client> (optional)
+
+The C<client> argument is optional and specifies the type of Metabase::Client
+to use to transmit reports to the target Metabase.  It defaults to 'Simple', 
+meaning that L<Metabase::Client::Simple> will be used.
 
 =head1 METHODS
 
@@ -156,25 +204,10 @@ The C<new> method is the object constructor.
 
 The C<send> method transmits the report.  
 
-=head1 AUTHOR
-
-=over
-
-=back
-
 =head1 AUTHORS
 
-=over 
-
-=item *
-
-Richard Dawe (RICHDAWE)
-
-=item * 
-
-David A. Golden (DAGOLDEN)
-
-=back
+  David A. Golden (DAGOLDEN)
+  Richard Dawe (RICHDAWE)
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -3,13 +3,16 @@ use inc::Module::Install;
 
 all_from('lib/Test/Reporter/Transport/Metabase.pm');
 
-requires('Test::Reporter'             => 1.5301 );
-requires('Metabase::Fact'             => 0.001);
+requires('base'                       => 0 );
+requires('Carp'                       => 0 );
+requires('Test::Reporter::Transport'  => '1.53_01' );
+requires('Metabase::Client::Simple'   => 0.001);
+requires('Metabase::User::Profile'    => 0.001);
 requires('CPAN::Testers::Report'      => 0.001); 
 requires('Config::Perl::V'            => 0.02);
-
 test_requires('Test::More'            => 0.62);
   
 extra_tests;
 
 WriteAll;
+
