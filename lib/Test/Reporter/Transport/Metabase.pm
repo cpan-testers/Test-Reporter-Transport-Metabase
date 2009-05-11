@@ -59,7 +59,7 @@ sub send {
       . "to Test::Reporter.  Report will not be sent.\n";
   }
 
-  my $profile = Metabase::User::Profile->load( $self->{profile} )
+  my $profile = eval { Metabase::User::Profile->load( $self->{profile} ) }
     or Carp::confess __PACKAGE__ . ": could not load Metabase profile\n"
     . "from '$self->{profile}'\n";
 
