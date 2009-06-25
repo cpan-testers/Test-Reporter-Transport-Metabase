@@ -123,7 +123,7 @@ __END__
 
 =head1 NAME
 
-Test::Reporter::Transport::Metabase - Metabase transport fo Test::Reporter
+Test::Reporter::Transport::Metabase - Metabase transport for Test::Reporter
 
 =head1 SYNOPSIS
 
@@ -142,11 +142,11 @@ Test::Reporter::Transport::Metabase - Metabase transport fo Test::Reporter
 
 This module submits a Test::Reporter report to the specified Metabase instance.
 
-This requires a network connection to the Metabase uri provided. 
-If you wish to save reports during offline operation, see 
+This requires a network connection to the Metabase uri provided.  If you wish
+to save reports during offline operation, see
 L<Test::Reporter::Transport::File>. (Eventually, you may be able to run a local
-Metabase instance to queue reports for later transmission, but this feature
-has not yet been developed.)
+Metabase instance to queue reports for later transmission, but this feature has
+not yet been developed.)
 
 =head1 USAGE
 
@@ -154,6 +154,7 @@ See L<Test::Reporter> and L<Test::Reporter::Transport> for general usage
 information.
 
 =head2 Transport arguments
+
 Unlike most other Transport classes, this class requires transport arguments
 to be provided as key-value pairs:
 
@@ -185,8 +186,10 @@ create one.
 =item C<client> (optional)
 
 The C<client> argument is optional and specifies the type of Metabase::Client
-to use to transmit reports to the target Metabase.  It defaults to 
-L<Metabase::Client::Simple>. 
+to use to transmit reports to the target Metabase.  It defaults to
+L<Metabase::Client::Simple>.
+
+=back
 
 =head1 METHODS
 
@@ -194,15 +197,15 @@ These methods are only for internal use by Test::Reporter.
 
 =head2 new
 
-    my $sender = Test::Reporter::Transport::File->new( $params ); 
-    
-The C<new> method is the object constructor.   
+    my $sender = Test::Reporter::Transport::File->new( $params );
+
+The C<new> method is the object constructor.
 
 =head2 send
 
     $sender->send( $report );
 
-The C<send> method transmits the report.  
+The C<send> method transmits the report.
 
 =head1 AUTHORS
 
@@ -211,12 +214,12 @@ The C<send> method transmits the report.
 
 =head1 COPYRIGHT AND LICENSE
 
-Portions Copyright (c) 2009 by Richard Dawe 
-Portions Copyright (c) 2009 by David A. Golden
+  Portions Copyright (c) 2009 by Richard Dawe
+  Portions Copyright (c) 2009 by David A. Golden
 
 Licensed under the same terms as Perl itself (the "License").
 You may not use this file except in compliance with the License.
-A copy of the License was distributed with this file or you may obtain a 
+A copy of the License was distributed with this file or you may obtain a
 copy of the License from http://dev.perl.org/licenses/
 
 Unless required by applicable law or agreed to in writing, software
