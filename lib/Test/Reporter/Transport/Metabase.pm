@@ -21,7 +21,7 @@ my %default_args = (
   client => 'Metabase::Client::Simple'
 );
 my @allowed_args = qw/uri profile client/;
-my @required_args = qw/uri profile/;
+my @required_args = qw/uri profile secret/;
 
 #--------------------------------------------------------------------------#
 # new
@@ -63,6 +63,10 @@ sub send {
     or Carp::confess __PACKAGE__ . ": could not load Metabase profile\n"
     . "from '$self->{profile}'\n";
 
+  my $secret = eval { Metabase::User::secret->load( $self->{secret} ) }
+    or Carp::confess __PACKAGE__ . ": could not load Metabase secret\n"
+    . "from '$self->{secret}'\n";
+
   # Load specified metabase client.
   my $class = $self->{client};
   eval "require $class"  
@@ -71,6 +75,7 @@ sub send {
   my $client = $class->new(
     url => $self->{uri},
     profile => $profile,
+    secret => $secret,
   );
 
   # Get facts about Perl config that Test::Reporter doesn't capture
@@ -131,7 +136,8 @@ Test::Reporter::Transport::Metabase - Metabase transport for Test::Reporter
         transport => 'Metabase',
         transport_args => [
           uri     => 'http://metabase.example.com:3000/',
-          profile => '/home/jdoe/.metabase.profile',
+          profile => '/home/jdoe/.metabase/jdoe.profile.json',
+          secret  => '/home/jdoe/.metabase/jdoe.secret.json',
         ],
     );
 
@@ -162,7 +168,8 @@ to be provided as key-value pairs:
         transport => 'Metabase',
         transport_args => [
           uri     => 'http://metabase.example.com:3000/',
-          profile => '/home/jdoe/.metabase.profile',
+          profile => '/home/jdoe/.metabase/jdoe.profile.json',
+          secret  => '/home/jdoe/.metabase/jdoe.secret.json',
         ],
     );
 
@@ -181,7 +188,14 @@ The C<profile> argument must be a path to a saved Metabase::User::Profile.  If
 you do not already have a profile file, use the 'metabase-profile' program to
 create one.
 
-  $ metabase-profile -o ~/.metabase.profile
+  $ metabase-profile --output jdoe
+
+This creates the files F<jdoe.profile.json> and F<jdoe.secret.json>.
+
+=item C<secret> (required)
+
+The C<secret> argument must be a path to a saved Metabase::User::Secret.
+It is also created by the F<metabase-profile> program.
 
 =item C<client> (optional)
 
