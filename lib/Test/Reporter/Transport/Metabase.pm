@@ -5,10 +5,11 @@ use strict;
 our $VERSION = 0.001;
 use base 'Test::Reporter::Transport';
 
-use Carp                                   ();
-use Config::Perl::V                        ();
-use CPAN::Testers::Report                  ();
-use Metabase::User::Profile          ();
+use Carp                      ();
+use Config::Perl::V           ();
+use CPAN::Testers::Report     ();
+use Metabase::User::Profile   ();
+use Metabase::User::Secret    ();
 BEGIN {
   $_->load_fact_classes for qw/Metabase::User::Profile CPAN::Testers::Report/;
 }
@@ -20,7 +21,7 @@ BEGIN {
 my %default_args = (
   client => 'Metabase::Client::Simple'
 );
-my @allowed_args = qw/uri profile client/;
+my @allowed_args = qw/uri profile secret client/;
 my @required_args = qw/uri profile secret/;
 
 #--------------------------------------------------------------------------#
