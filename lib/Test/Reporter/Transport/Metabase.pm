@@ -54,7 +54,7 @@ sub new {
 sub send {
   my ($self, $report) = @_;
 
-  unless ( $report->can('distfile') && $report->distfile ) {
+  unless ( eval { $report->distfile } ) {
     Carp::confess __PACKAGE__ . ": requires the 'distfile' parameter to be set\n"
       . "Please update your client to a version that provides this information\n"
       . "to Test::Reporter.  Report will not be sent.\n";
@@ -64,7 +64,7 @@ sub send {
     or Carp::confess __PACKAGE__ . ": could not load Metabase profile\n"
     . "from '$self->{profile}'\n";
 
-  my $secret = eval { Metabase::User::secret->load( $self->{secret} ) }
+  my $secret = eval { Metabase::User::Secret->load( $self->{secret} ) }
     or Carp::confess __PACKAGE__ . ": could not load Metabase secret\n"
     . "from '$self->{secret}'\n";
 
