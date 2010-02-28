@@ -8,6 +8,7 @@ use base 'Test::Reporter::Transport';
 use Carp                      ();
 use Config::Perl::V           ();
 use CPAN::Testers::Report     ();
+use JSON                      ();
 use Metabase::User::Profile   ();
 use Metabase::User::Secret    ();
 BEGIN {
@@ -21,8 +22,8 @@ BEGIN {
 my %default_args = (
   client => 'Metabase::Client::Simple'
 );
-my @allowed_args = qw/uri profile secret client/;
-my @required_args = qw/uri profile secret/;
+my @allowed_args = qw/uri id_file client/;
+my @required_args = qw/uri id_file/;
 
 #--------------------------------------------------------------------------#
 # new
@@ -56,17 +57,11 @@ sub send {
 
   unless ( eval { $report->distfile } ) {
     Carp::confess __PACKAGE__ . ": requires the 'distfile' parameter to be set\n"
-      . "Please update your client to a version that provides this information\n"
-      . "to Test::Reporter.  Report will not be sent.\n";
+      . "Please update your CPAN testing software to a version that provides \n"
+      . "this information to Test::Reporter.  Report will not be sent.\n";
   }
 
-  my $profile = eval { Metabase::User::Profile->load( $self->{profile} ) }
-    or Carp::confess __PACKAGE__ . ": could not load Metabase profile\n"
-    . "from '$self->{profile}'\n";
-
-  my $secret = eval { Metabase::User::Secret->load( $self->{secret} ) }
-    or Carp::confess __PACKAGE__ . ": could not load Metabase secret\n"
-    . "from '$self->{secret}'\n";
+  my ($profile, $secret) = $self->_load_id_file;
 
   # Load specified metabase client.
   my $class = $self->{client};
@@ -121,6 +116,26 @@ sub send {
   $metabase_report->close();
 
   return $client->submit_fact($metabase_report);
+}
+
+sub _load_id_file {
+  my ($self) = shift;
+  
+  open my $fh, "<", $self->{id_file}
+    or Carp::confess __PACKAGE__. ": could not read ID file '$self->{id_file}'"
+    . "\n$!";
+  
+  my $data = JSON->new->decode( do { local $/; <$fh> } );
+
+  my $profile = eval { Metabase::User::Profile->from_struct($data->[0]) }
+    or Carp::confess __PACKAGE__ . ": could not load Metabase profile\n"
+    . "from '$self->{id_file}':\n$@";
+
+  my $secret = eval { Metabase::User::Secret->from_struct($data->[1]) }
+    or Carp::confess __PACKAGE__ . ": could not load Metabase secret\n"
+    . "from '$self->{id_file}':\n $@";
+
+  return ($profile, $secret);
 }
 
 1;
