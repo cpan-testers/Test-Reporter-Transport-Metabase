@@ -2,7 +2,7 @@ package Test::Reporter::Transport::Metabase;
 use 5.006;
 use warnings;
 use strict;
-our $VERSION = '0.002';
+our $VERSION = '1.999';
 use base 'Test::Reporter::Transport';
 
 use Carp                      ();
