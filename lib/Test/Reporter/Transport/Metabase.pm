@@ -152,8 +152,7 @@ Test::Reporter::Transport::Metabase - Metabase transport for Test::Reporter
         transport => 'Metabase',
         transport_args => [
           uri     => 'http://metabase.example.com:3000/',
-          profile => '/home/jdoe/.metabase/jdoe.profile.json',
-          secret  => '/home/jdoe/.metabase/jdoe.secret.json',
+          id_file => '/home/jdoe/.metabase/metabase_id.json',
         ],
     );
 
@@ -184,8 +183,7 @@ to be provided as key-value pairs:
         transport => 'Metabase',
         transport_args => [
           uri     => 'http://metabase.example.com:3000/',
-          profile => '/home/jdoe/.metabase/jdoe.profile.json',
-          secret  => '/home/jdoe/.metabase/jdoe.secret.json',
+          id_file => '/home/jdoe/.metabase/metabase_id.json',
         ],
     );
 
@@ -198,20 +196,17 @@ Arguments include:
 The C<uri> argument gives the network location of a Metabase instance to receive
 reports.
 
-=item C<profile> (required)
+=item C<id_file> (required)
 
-The C<profile> argument must be a path to a saved Metabase::User::Profile.  If
-you do not already have a profile file, use the 'metabase-profile' program to
+The C<id_file> argument must be a path to a Metabase ID file.  If
+you do not already have an ID file, use the L<metabase-profile> program to
 create one.
 
-  $ metabase-profile --output jdoe
+  $ metabase-profile
 
-This creates the files F<jdoe.profile.json> and F<jdoe.secret.json>.
-
-=item C<secret> (required)
-
-The C<secret> argument must be a path to a saved Metabase::User::Secret.
-It is also created by the F<metabase-profile> program.
+This creates the file F<metabase_id.json> in the current directory.  You
+can also give an C<--output> argument to save the file to a different
+location or with a different name.
 
 =item C<client> (optional)
 
@@ -245,7 +240,7 @@ The C<send> method transmits the report.
 =head1 COPYRIGHT AND LICENSE
 
   Portions Copyright (c) 2009 by Richard Dawe
-  Portions Copyright (c) 2009 by David A. Golden
+  Portions Copyright (c) 2009-2010 by David A. Golden
 
 Licensed under the same terms as Perl itself (the "License").
 You may not use this file except in compliance with the License.
