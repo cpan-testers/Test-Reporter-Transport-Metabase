@@ -1,5 +1,10 @@
 Revision history for Test-Reporter-Transport-Metabase
 
+1.999002 Thu Mar 11 17:42:36 EST 2010
+
+  - Bumped Metabase::Client::Simple prereq to 0.004 and revised internals
+    to reflect changed constructor args for it
+
 1.999001 Wed Mar 10 11:18:49 EST 2010
 
   - Fixed documentation to reflect changes in the API
