@@ -10,7 +10,7 @@ requires      ('JSON'                         => 2.17    );
 requires      ('Metabase::Client::Simple'     => 0.004   );
 requires      ('Metabase::User::Profile'      => 0.003   );
 requires      ('Metabase::User::Secret'       => 0.003   );
-requires      ('Test::Reporter::Transport'    => 1.54    );
+requires      ('Test::Reporter::Transport'    => 1.56    );
 requires      ('base'                         => 2.14    );
 build_requires('Test::More'                   => 0.88    );
 

@@ -58,7 +58,7 @@ sub send {
 
   unless ( eval { $report->distfile } ) {
     Carp::confess __PACKAGE__ . ": requires the 'distfile' parameter to be set\n"
-      . "Please update your CPAN testing software to a version that provides \n"
+      . "Please update CPAN::Reporter and/or CPANPLUS to a version that provides \n"
       . "this information to Test::Reporter.  Report will not be sent.\n";
   }
 
