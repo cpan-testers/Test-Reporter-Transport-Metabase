@@ -1,3 +1,5 @@
+/.build
+/Test-Reporter-Transport-Metabase-*
 eg/*
 Makefile
 Makefile.old
