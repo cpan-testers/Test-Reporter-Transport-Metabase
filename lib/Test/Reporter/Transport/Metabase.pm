@@ -81,6 +81,7 @@ sub send {
   # was run on
   my $perlv = $report->{_perl_version}->{_myconfig};
   my $config = Config::Perl::V::summary(Config::Perl::V::plv2hash($perlv));
+  my $perl_version = $report->{_perl_version}{_version} || $config->{version};
 
   # Build CPAN::Testers::Report with its various component facts.
   my $metabase_report = CPAN::Testers::Report->open(
@@ -92,7 +93,7 @@ sub send {
     osname        => $config->{osname},
     osversion     => $report->{_perl_version}{_osvers},
     archname      => $report->{_perl_version}{_archname},
-    perl_version   => $config->{version},
+    perl_version  => $perl_version,
     textreport    => $report->report
   });
 
