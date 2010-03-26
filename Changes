@@ -2,6 +2,8 @@ Revision history for Test-Reporter-Transport-Metabase
 
 {{$NEXT}}
 
+1.999003  2010-03-26 00:50:45 EST5EDT
+
   - Added support for Perl version attribute from Test::Reporter 1.57+
     and bumped Test::Reporter prereq
 
