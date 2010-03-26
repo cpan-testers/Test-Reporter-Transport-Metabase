@@ -1,8 +1,9 @@
-package Test::Reporter::Transport::Metabase;
 use 5.006;
 use warnings;
 use strict;
-our $VERSION = '1.999002';
+package Test::Reporter::Transport::Metabase;
+# ABSTRACT: Metabase transport for Test::Reporter
+
 use base 'Test::Reporter::Transport';
 
 use Carp                      ();
@@ -144,10 +145,6 @@ sub _load_id_file {
 
 __END__
 
-=head1 NAME
-
-Test::Reporter::Transport::Metabase - Metabase transport for Test::Reporter
-
 =head1 SYNOPSIS
 
     my $report = Test::Reporter->new(
@@ -233,27 +230,6 @@ The C<new> method is the object constructor.
     $sender->send( $report );
 
 The C<send> method transmits the report.
-
-=head1 AUTHORS
-
-  David A. Golden (DAGOLDEN)
-  Richard Dawe (RICHDAWE)
-
-=head1 COPYRIGHT AND LICENSE
-
-  Portions Copyright (c) 2009 by Richard Dawe
-  Portions Copyright (c) 2009-2010 by David A. Golden
-
-Licensed under the same terms as Perl itself (the "License").
-You may not use this file except in compliance with the License.
-A copy of the License was distributed with this file or you may obtain a
-copy of the License from http://dev.perl.org/licenses/
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
 =cut
 

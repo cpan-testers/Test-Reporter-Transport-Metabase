@@ -1,5 +1,11 @@
 Revision history for Test-Reporter-Transport-Metabase
 
+{{$NEXT}}
+
+  - Added support for Perl version attribute from Test::Reporter 1.57+
+
+  - Converted to Dist::Zilla for release management
+
 1.999002 Thu Mar 11 17:42:36 EST 2010
 
   - Bumped Metabase::Client::Simple prereq to 0.004 and revised internals
