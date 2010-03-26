@@ -3,6 +3,7 @@ Revision history for Test-Reporter-Transport-Metabase
 {{$NEXT}}
 
   - Added support for Perl version attribute from Test::Reporter 1.57+
+    and bumped Test::Reporter prereq
 
   - Converted to Dist::Zilla for release management
 
