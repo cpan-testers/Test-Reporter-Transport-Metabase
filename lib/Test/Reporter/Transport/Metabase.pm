@@ -128,7 +128,7 @@ sub _load_id_file {
     or Carp::confess __PACKAGE__. ": could not read ID file '$self->{id_file}'"
     . "\n$!";
   
-  my $data = JSON->new->decode( do { local $/; <$fh> } );
+  my $data = JSON->new->ascii->decode( do { local $/; <$fh> } );
 
   my $profile = eval { Metabase::User::Profile->from_struct($data->[0]) }
     or Carp::confess __PACKAGE__ . ": could not load Metabase profile\n"
