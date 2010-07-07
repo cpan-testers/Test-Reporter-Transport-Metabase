@@ -4,7 +4,8 @@ use strict;
 package Test::Reporter::Transport::Metabase;
 # ABSTRACT: Metabase transport for Test::Reporter
 
-use base 'Test::Reporter::Transport';
+use Test::Reporter::Transport;
+our @ISA = qw/Test::Reporter::Transport/;
 
 use Carp                      ();
 use Config::Perl::V           ();

@@ -2,6 +2,8 @@ Revision history for Test-Reporter-Transport-Metabase
 
 {{$NEXT}}
 
+  - Remove use of 'base' pragma to help diagnose some heisenbugs
+
 1.999004  2010-03-29 15:56:36 EST5EDT
 
   - Changed to the Apache License, version 2.0; (it's clearer, relicensable,
