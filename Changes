@@ -2,6 +2,8 @@ Revision history for Test-Reporter-Transport-Metabase
 
 {{$NEXT}}
 
+1.999007  2010-07-26 16:54:26 EST5EDT
+
   - Bump CPAN::Testers::Report prereq to 1.999001
 
   - Remove unnecessary ->load_fact_classes calls as they are handled
