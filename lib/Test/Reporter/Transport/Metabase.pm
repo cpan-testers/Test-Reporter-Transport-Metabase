@@ -9,14 +9,11 @@ our @ISA = qw/Test::Reporter::Transport/;
 
 use Carp                            ();
 use Config::Perl::V                 ();
-use CPAN::Testers::Report     1.999 ();
+use CPAN::Testers::Report     1.999001 ();
 use JSON                      2     ();
 use Metabase::User::Profile   0.016 ();
 use Metabase::User::Secret    0.016 ();
 use Metabase::Client::Simple  0.008 ();
-BEGIN {
-  $_->load_fact_classes for qw/Metabase::User::Profile CPAN::Testers::Report/;
-}
 
 #--------------------------------------------------------------------------#
 # argument definitions
