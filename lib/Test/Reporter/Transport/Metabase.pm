@@ -10,6 +10,7 @@ our @ISA = qw/Test::Reporter::Transport/;
 use Carp                            ();
 use Config::Perl::V                 ();
 use CPAN::Testers::Report     1.999001 ();
+use File::Glob                      ();
 use JSON                      2     ();
 use Metabase::User::Profile   0.016 ();
 use Metabase::User::Secret    0.016 ();
@@ -122,7 +123,7 @@ sub send {
 sub _load_id_file {
   my ($self) = shift;
   
-  open my $fh, "<", glob( $self->{id_file} )
+  open my $fh, "<", File::Glob::bsd_glob( $self->{id_file} )
     or Carp::confess __PACKAGE__. ": could not read ID file '$self->{id_file}'"
     . "\n$!";
   
