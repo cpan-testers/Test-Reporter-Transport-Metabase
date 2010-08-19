@@ -2,6 +2,9 @@ Revision history for Test-Reporter-Transport-Metabase
 
 {{$NEXT}}
 
+  - Use bsd_glob instead of glob to avoid clobbering spaces
+    on Windows. [Chris Williams]
+
 1.999007  2010-07-26 16:54:26 EST5EDT
 
   - Bump CPAN::Testers::Report prereq to 1.999001
