@@ -4,7 +4,7 @@ use strict;
 package Test::Reporter::Transport::Metabase;
 # ABSTRACT: Metabase transport for Test::Reporter
 
-our $VERSION = '1.999009';
+our $VERSION = '1.999010';
 
 use Test::Reporter::Transport 1.57 ();
 our @ISA = qw/Test::Reporter::Transport/;
