@@ -2,6 +2,10 @@ Revision history for Test-Reporter-Transport-Metabase
 
 {{$NEXT}}
 
+    [PREREQS]
+
+    - Changed from JSON to JSON::MaybeXS for better backend support
+
 1.999009  2015-03-29 21:16:24-04:00 America/New_York
 
     [FIXED]
